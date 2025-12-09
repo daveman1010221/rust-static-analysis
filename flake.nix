@@ -107,6 +107,18 @@
           doCheck = false; # turn off package checks (which don't work in the nix environment)
         };
 
+        cargoCycloneDx = rustPlatform.buildRustPackage rec {
+          pname = "cargo-cyclonedx";
+          version = "0.5.7";
+          src = pkgs.fetchCrate {
+            inherit pname version;
+            hash = "sha256-EezOYkG5UHBixl35pj2u1jEPriDUIXO4xRMrVAzjghE=";
+          };
+          cargoHash = "sha256-NRZifMDglVZjO+r7w/ZANxNQPIkfPYlLTEzc2Nar2Dw=";
+
+          doCheck = false; # turn off package checks (which don't work in the nix environment)
+        };
+
         staticToolsScript = pkgs.writeShellScriptBin "static-tools.sh" ''
 #!${pkgs.bash}/bin/bash
 # Call the script from the flake source tree
@@ -147,6 +159,7 @@ exec ''${./scripts/static-tools.sh} "$@"
               noseyparker
               cargo-udeps
               deny
+              cargoCycloneDx
               #unusedfeatures
               l3x.packages.${system}.default
               staticToolsScript
