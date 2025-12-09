@@ -107,7 +107,6 @@
           doCheck = false; # turn off package checks (which don't work in the nix environment)
         };
 
-        # TODO: finish this
         cargoCycloneDx = rustPlatform.buildRustPackage rec {
           pname = "cargo-cyclonedx";
           version = "0.5.7";
